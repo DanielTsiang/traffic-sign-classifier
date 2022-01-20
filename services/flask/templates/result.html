@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Result
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h4>{{ result.prediction }}</h4>
+        <h4>{{ result.confidence }}</h4>
+        <hr class="mb-5">
+        <div>
+            {% if "image_base64" in result %}
+                <img src="data:image/{{ result.image_extension }};base64, {{ result.image_base64 }}"
+                     class="rounded border border-dark border-3"
+                     width="300"
+                >
+            {% endif %}
+        </div>
+        <a href="{{ url_for('index') }}" class="btn btn-outline-dark mt-3" role="button">Back</a>
+
+    </div>
+
+{% endblock %}

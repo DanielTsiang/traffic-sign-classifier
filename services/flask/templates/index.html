@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Upload
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h4>Upload Traffic Sign Image</h4>
+        <hr class="mb-5">
+        <form action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
+
+
+            <div class="mb-3">
+                <input class="form-control" type="file" name="file">
+            </div>
+
+            <div class="d-grid gap-2 d-md-block">
+                <button class="btn btn-outline-dark" type="submit" name="action" value="upload">Upload Image</button>
+                <button class="btn btn-outline-dark" type="submit" name="action" value="random">Random Image</button>
+            </div>
+        </form>
+
+        <div class="m-5">
+            <figure class="figure">
+                <img src="https://user-images.githubusercontent.com/74436899/142770892-29d648e4-4bfd-4f0e-885f-fb3ed5a64be1.png"
+                     class="figure-img img-fluid rounded border border-dark border-3"
+                     alt="43 Traffic Signs Understood By Model"
+                     width="300px"
+                >
+                <figcaption class="figure-caption">43 traffic signs understood by the model</figcaption>
+            </figure>
+        </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tableModal">
+            View table of traffic sign descriptions
+        </button>
+
+        <!-- Table modal -->
+        <div class="modal fade" id="tableModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">43 Traffic Sign Classes</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body table-responsive">
+                        <table id="classes" class="table table-hover table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Class ID</th>
+                                    <th>Class Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for class in classes %}
+                                <tr>
+                                    <td>{{ loop.index0 }}</td>
+                                    <td>{{ class }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- script for sorting table -->
+    <script>
+        $(document).ready( function() {
+            $('#classes').DataTable({
+                lengthMenu: [ 5, 10, 25, 50 ],
+                order: [[ 0, "asc" ]],
+                pageLength: 5,
+                scrollY: 205,
+            });
+
+            // Adjust table columns when table modal becomes visible
+            $("#tableModal").on("shown.bs.modal", function (e) {
+                $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+            });
+        });
+    </script>
+{% endblock %}

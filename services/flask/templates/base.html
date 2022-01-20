@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1, width=device-width">
+		<meta name="description" content="Traffic Sign Classifier">
+        <meta name="author" content="Daniel Tsiang">
+        <meta name="keywords" content="Daniel, Tsiang, Traffic, Sign, Classifier">
+
+        <!-- Site Name, Title, and Description to be displayed -->
+        <meta property="og:title" content="Traffic Sign Classifier">
+        <meta property="og:description" content="A single-page web app that uses a machine learning model to classify traffic sign images.">
+
+        <!-- Image to display -->
+        <meta property="og:image" itemprop="image" content="static/computer-vision.jpg">
+
+        <!-- Website to visit when link is clicked -->
+        <meta property="og:url" content="http://traffic-sign-classifier-dt.herokuapp.com/">
+
+		<!-- Import Bootstrap 5.0 and Datatable CSS https://datatables.net/examples/styling/bootstrap5.html -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+
+		<!-- Import custom stylesheet -->
+		<link rel="stylesheet" href="static/styles.css">
+
+		<!-- Favicon Icon -->
+		<link rel="icon" href="static/favicon.ico">
+
+		<!-- Import Bootstrap 5.0 JS https://getbootstrap.com/docs/5.0/getting-started/introduction/ -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+		<!-- Import Datatable & JQuery JS https://datatables.net/examples/styling/bootstrap5.html -->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+
+        <!-- Import Font Awesome -->
+        <script src="https://kit.fontawesome.com/b4bf0585d5.js" crossorigin="anonymous"></script>
+
+		<title>Traffic Sign Classifier: {% block title %}{% endblock %}</title>
+
+	</head>
+
+	<body>
+		<div class="page-wrap">
+
+			<header>
+				{% block header %}{% endblock %}
+				{% with messages = get_flashed_messages(with_categories=true) %}
+					{% for category, message in messages %}
+						<div class="alert alert-{{ category }} alert-dismissible fade show mx-auto text-center w-75" role="alert">
+							{% if "success" in category %}
+								<i class="fas fa-check-circle"></i>
+							{% elif "info" in category %}
+								<i class="fas fa-info-circle"></i>
+							{% else %}
+								<i class="fas fa-exclamation-triangle"></i>
+							{% endif %}
+							{{ get_flashed_messages() | join(" ") }}
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+					{% endfor %}
+				{% endwith %}
+			</header>
+
+			<main class="container p-3">
+				{% block main %}{% endblock %}
+			</main>
+
+		</div>
+
+		<footer class="text-center small text-muted site-footer">
+			{% block footer %}{% endblock %}
+			<p>
+				<span class="line">Web application created by <a href="https://danieltsiang.github.io/">Daniel Tsiang</a>.</span>
+				<span class="line">No uploaded images are stored by this application.</span>
+			</p>
+		</footer>
+
+	</body>
+
+</html>
