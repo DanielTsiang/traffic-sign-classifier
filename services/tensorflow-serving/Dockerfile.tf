@@ -10,4 +10,5 @@ COPY ./model.config /models/
 # Fix because base tf_serving_entrypoint.sh does not take $PORT env variable while $PORT is set by Heroku
 # CMD is required to run on Heroku
 COPY ./tf_serving_entrypoint.sh /usr/bin/tf_serving_entrypoint.sh
+RUN chmod +x /usr/bin/tf_serving_entrypoint.sh
 CMD ["/usr/bin/tf_serving_entrypoint.sh"]
