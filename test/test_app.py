@@ -8,13 +8,19 @@ import cv2
 import numpy as np
 import os
 import random
+import sys
 import unittest
+
+# Append to list of searched paths
+sys.path.append(os.path.join((Path(__file__).parents[1].resolve()), "services", "flask"))
 
 from application import app
 import model
 
+
 # Define global configs
-SAMPLE_PATH = os.path.join(Path(__file__).parents[1].resolve(), "static", "sample")
+SAMPLE_PATH = os.path.join(Path(__file__).parents[1].resolve(), "services", "flask", "static", "sample")
+model.MODEL_URI = "http://localhost:8501/v1/models/traffic-sign-classifier:predict"
 
 
 @contextmanager
@@ -41,9 +47,9 @@ class AppTestCase(unittest.TestCase):
                 template, context = templates[0]
 
         # THEN
-        self.assertEquals(HTTPStatus.OK, response.status_code)
-        self.assertEquals("index.html", template.name)
-        self.assertEquals(model.CLASSES, context["classes"])
+        self.assertEqual(HTTPStatus.OK, response.status_code)
+        self.assertEqual("index.html", template.name)
+        self.assertEqual(model.CLASSES, context["classes"])
 
     def test_valid_upload(self):
         # GIVEN
@@ -73,12 +79,12 @@ class AppTestCase(unittest.TestCase):
                 result = context["result"]
 
         # THEN
-        self.assertEquals(HTTPStatus.OK, response.status_code)
-        self.assertEquals("result.html", template.name)
-        self.assertEquals("Predicted Class: " + model.CLASSES[int(file_name)], result["prediction"])
-        self.assertEquals("Confidence Score: 1.0", result["confidence"])
-        self.assertEquals(base64_image, result["image_base64"])
-        self.assertEquals(extension, result["image_extension"])
+        self.assertEqual(HTTPStatus.OK, response.status_code)
+        self.assertEqual("result.html", template.name)
+        self.assertEqual("Predicted Class: " + model.CLASSES[int(file_name)], result["prediction"])
+        self.assertEqual("Confidence Score: 1.0", result["confidence"])
+        self.assertEqual(base64_image, result["image_base64"])
+        self.assertEqual(extension, result["image_extension"])
 
     def test_unknown_upload(self):
         # GIVEN
@@ -110,11 +116,11 @@ class AppTestCase(unittest.TestCase):
                 result = context["result"]
 
         # THEN
-        self.assertEquals(HTTPStatus.OK, response.status_code)
-        self.assertEquals("result.html", template.name)
-        self.assertEquals("Error: Unknown image", result["prediction"])
-        self.assertEquals(base64_image, result["image_base64"])
-        self.assertEquals(extension, result["image_extension"])
+        self.assertEqual(HTTPStatus.OK, response.status_code)
+        self.assertEqual("result.html", template.name)
+        self.assertEqual("Error: Unknown image", result["prediction"])
+        self.assertEqual(base64_image, result["image_base64"])
+        self.assertEqual(extension, result["image_extension"])
 
     def test_invalid_upload(self):
         # GIVEN
@@ -140,10 +146,10 @@ class AppTestCase(unittest.TestCase):
                 result = context["result"]
 
         # THEN
-        self.assertEquals(HTTPStatus.OK, response.status_code)
-        self.assertEquals("result.html", template.name)
-        self.assertEquals("Error: Invalid image uploaded", result["prediction"])
-        self.assertEquals(extension, result["image_extension"])
+        self.assertEqual(HTTPStatus.OK, response.status_code)
+        self.assertEqual("result.html", template.name)
+        self.assertEqual("Error: Invalid image uploaded", result["prediction"])
+        self.assertEqual(extension, result["image_extension"])
 
     def test_random(self):
         # GIVEN
@@ -160,10 +166,10 @@ class AppTestCase(unittest.TestCase):
                 result = context["result"]
 
         # THEN
-        self.assertEquals(HTTPStatus.OK, response.status_code)
-        self.assertEquals("result.html", template.name)
+        self.assertEqual(HTTPStatus.OK, response.status_code)
+        self.assertEqual("result.html", template.name)
         self.assertIn("Predicted Class:", result["prediction"])
-        self.assertEquals("Confidence Score: 1.0", result["confidence"])
+        self.assertEqual("Confidence Score: 1.0", result["confidence"])
         self.assertIn("image_base64", result)
         self.assertIn("image_extension", result)
 
