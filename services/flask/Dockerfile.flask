@@ -12,4 +12,4 @@ COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 # Start gunicorn
-CMD ["gunicorn", "wsgi:app", "--workers=2", "--threads=2", "--bind=0.0.0.0:8000"]
+CMD ["gunicorn", "-c", "gunicorn_config.py", "--preload","wsgi:app"]
