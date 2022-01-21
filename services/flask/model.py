@@ -6,7 +6,7 @@ import requests
 
 # Define global configs
 SIZE = 30
-CONFIDENCE_THRESHOLD = 0.97
+CONFIDENCE_THRESHOLD = 0.988
 MODEL_URI = "http://host.docker.internal:8501/v1/models/traffic-sign-classifier:predict"
 CLASSES = [
     "Speed limit (20km/h)",
