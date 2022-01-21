@@ -1,91 +1,86 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
 
-{% block title %}
-	Upload
-{% endblock %}
+<html lang="en">
 
-{% block main %}
-    <div class="container">
-        <h4>Upload Traffic Sign Image</h4>
-        <hr class="mb-5">
-        <form action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
+    <head>
 
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <meta name="description" content="Traffic Sign Classifier">
+        <meta name="author" content="Daniel Tsiang">
+        <meta name="keywords" content="Daniel, Tsiang, Traffic, Sign, Classifier">
 
-            <div class="mb-3">
-                <input class="form-control" type="file" name="file">
-            </div>
+        <!-- Site Name, Title, and Description to be displayed -->
+        <meta property="og:title" content="Traffic Sign Classifier">
+        <meta property="og:description" content="A single-page web app that uses a machine learning model to classify traffic sign images.">
 
-            <div class="d-grid gap-2 d-md-block">
-                <button class="btn btn-outline-dark" type="submit" name="action" value="upload">Upload Image</button>
-                <button class="btn btn-outline-dark" type="submit" name="action" value="random">Random Image</button>
-            </div>
-        </form>
+        <!-- Image to display -->
+        <meta property="og:image" itemprop="image" content="static/computer-vision.jpg">
 
-        <div class="m-5">
-            <figure class="figure">
-                <img src="https://user-images.githubusercontent.com/74436899/142770892-29d648e4-4bfd-4f0e-885f-fb3ed5a64be1.png"
-                     class="figure-img img-fluid rounded border border-dark border-3"
-                     alt="43 Traffic Signs Understood By Model"
-                     width="300px"
-                >
-                <figcaption class="figure-caption">43 traffic signs understood by the model</figcaption>
-            </figure>
+        <!-- Website to visit when link is clicked -->
+        <meta property="og:url" content="http://traffic-sign-classifier-dt.herokuapp.com/">
+
+        <!-- Import Bootstrap 5.0 and Datatable CSS https://datatables.net/examples/styling/bootstrap5.html -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+
+        <!-- Import custom stylesheet -->
+        <link rel="stylesheet" href="static/styles.css">
+
+        <!-- Favicon Icon -->
+        <link rel="icon" href="static/favicon.ico">
+
+        <!-- Import Bootstrap 5.0 JS https://getbootstrap.com/docs/5.0/getting-started/introduction/ -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+        <!-- Import Datatable & JQuery JS https://datatables.net/examples/styling/bootstrap5.html -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+
+        <!-- Import Font Awesome -->
+        <script src="https://kit.fontawesome.com/b4bf0585d5.js" crossorigin="anonymous"></script>
+
+        <title>Traffic Sign Classifier: {% block title %}{% endblock %}</title>
+
+    </head>
+
+    <body>
+        <div class="page-wrap">
+
+            <header>
+                {% block header %}{% endblock %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show mx-auto text-center w-75" role="alert">
+                            {% if "success" in category %}
+                                <i class="fas fa-check-circle"></i>
+                            {% elif "info" in category %}
+                                <i class="fas fa-info-circle"></i>
+                            {% else %}
+                                <i class="fas fa-exclamation-triangle"></i>
+                            {% endif %}
+                            {{ get_flashed_messages() | join(" ") }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endwith %}
+            </header>
+
+            <main class="container p-3">
+                {% block main %}{% endblock %}
+            </main>
+
         </div>
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tableModal">
-            View table of traffic sign descriptions
-        </button>
+        <footer class="text-center small text-muted site-footer">
+            {% block footer %}{% endblock %}
+            <p>
+                <span class="line">Web application created by <a href="https://danieltsiang.github.io/">Daniel Tsiang</a>.</span>
+                <span class="line">No uploaded images are stored by this application.</span>
+            </p>
+        </footer>
 
-        <!-- Table modal -->
-        <div class="modal fade" id="tableModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">43 Traffic Sign Classes</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body table-responsive">
-                        <table id="classes" class="table table-hover table-striped" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Class ID</th>
-                                    <th>Class Name</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {% for class in classes %}
-                                <tr>
-                                    <td>{{ loop.index0 }}</td>
-                                    <td>{{ class }}</td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </body>
 
-    </div>
-
-    <!-- script for sorting table -->
-    <script>
-        $(document).ready( function() {
-            $('#classes').DataTable({
-                lengthMenu: [ 5, 10, 25, 50 ],
-                order: [[ 0, "asc" ]],
-                pageLength: 5,
-                scrollY: 205,
-            });
-
-            // Adjust table columns when table modal becomes visible
-            $("#tableModal").on("shown.bs.modal", function (e) {
-                $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
-            });
-        });
-    </script>
-{% endblock %}
+</html>
