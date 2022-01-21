@@ -68,7 +68,7 @@ def index():
         # Check if user hit upload button without uploading a file
         if uploaded_file.filename == "":
             # User did not upload a file
-            flash("Please upload a file before hitting the upload button", "info")
+            flash("Please choose a file before hitting the upload button", "info")
             return render_template("index.html", classes=model.CLASSES)
 
         # User uploaded a file, read bytes and get file extension
