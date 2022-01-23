@@ -79,7 +79,7 @@ def index():
     base64_image = base64.b64encode(file_bytes).decode("ascii")
 
     # Decode image into NumPy array and get prediction from model
-    image = cv2.imdecode(np.frombuffer(file_bytes, dtype=np.uint8), cv2.IMREAD_COLOR)
+    image = cv2.imdecode(np.frombuffer(file_bytes, dtype=np.uint8), cv2.IMREAD_COLOR) if file_bytes else None
     prediction = model.get_prediction(image)
 
     # Get results from response and return `result.html`
