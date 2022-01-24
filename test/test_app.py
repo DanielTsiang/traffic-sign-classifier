@@ -8,15 +8,10 @@ import cv2
 import numpy as np
 import os
 import random
-import sys
 import unittest
 
-# Append to list of searched paths
-sys.path.append(os.path.join((Path(__file__).parents[1].resolve()), "services", "flask"))
-
-from application import app
-import model
-
+from services.flask.application import app
+from services.flask import model
 
 # Define global configs
 SAMPLE_PATH = os.path.join(Path(__file__).parents[1].resolve(), "services", "flask", "static", "sample")
