@@ -6,7 +6,7 @@ warnings.filterwarnings("ignore")
 
 # App level
 # The port to bind.
-port = int(env("GUNICORN_PORT", "8000"))
+port = int(env("GUNICORN_PORT", 8000))
 
 # The socket to bind.
 bind = env("GUNICORN_BIND", f"0.0.0.0:{port}")
