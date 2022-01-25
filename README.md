@@ -13,7 +13,7 @@ See [here](https://github.com/DanielTsiang/CS50ai/tree/main/project5/traffic) fo
 2. Note that the app may take up to 30 seconds to load as it wakes up from automatic sleep if it hasn't been used in a while.
 
 ### Video Demo
-https://user-images.githubusercontent.com/74436899/150699215-113d55a2-2fd8-4e72-a37f-15f39c3342d1.mp4
+https://user-images.githubusercontent.com/74436899/151076061-8875ae51-8c43-4dea-b9bd-9bed501bf234.mp4
 
 ### Running locally
 1. Ensure you have Docker installed.
