@@ -10,11 +10,6 @@ services:
         depends_on:
             - flask
 
-    flask:
-        build:
-            context: ./services/flask
-            dockerfile: Dockerfile.flask
-        container_name: flask
     nginx:
         build:
             context: ./services/nginx
@@ -22,3 +17,11 @@ services:
         container_name: nginx
         ports:
             - "1337:443"
+        depends_on:
+            - flask
+
+    flask:
+        build:
+            context: ./services/flask
+            dockerfile: Dockerfile.flask
+        container_name: flask
