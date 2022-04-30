@@ -24,6 +24,12 @@ E.g. in Chrome, click on the screen with the page open and type `thisisunsafe` t
 containers without SSL enforced. In this branch, visit `localhost` instead.
 5. To shut down the app, run `docker-compose down` in the terminal or hit `CTRL+C`.
 
+### Testing
+To run the integration tests, in the root folder, run the following in the terminal:
+```
+sh tests/test.sh
+```
+
 ## Specification
 * Design and build a single-page web app to serve a Machine Learning model I trained.
 * Serve the Python Flask app with Gunicorn and use NGINX as the reverse proxy. Customise NGINX config to force SSL.

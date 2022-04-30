@@ -5,6 +5,8 @@ import os
 import tensorflow as tf
 import unittest
 
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"  # Disable tensorflow debugging logs
+
 
 class ModelTestCase(unittest.TestCase):
 

@@ -2,12 +2,12 @@ from typing import Optional, Union
 import cv2
 import json
 import numpy as np
+import os
 import requests
 
 # Define global configs
 SIZE = 30
 CONFIDENCE_THRESHOLD = 0.988
-MODEL_URI = "http://host.docker.internal:8501/v1/models/traffic-sign-classifier:predict"
 CLASSES = [
     "Speed limit (20km/h)",
     "Speed limit (30km/h)",
@@ -53,6 +53,10 @@ CLASSES = [
     "End of no passing",
     "End of no passing vehicles over 3.5 metrics tons"
 ]
+TENSORFLOW_SERVING_HOST = os.environ.get("TENSORFLOW_SERVING_HOST", "localhost")
+TENSORFLOW_SERVING_PORT = int(os.environ.get("TENSORFLOW_SERVING_PORT", "8501"))
+MODEL_NAME = "traffic-sign-classifier"
+MODEL_URI = f"http://{TENSORFLOW_SERVING_HOST}:{TENSORFLOW_SERVING_PORT}/v1/models/{MODEL_NAME}:predict"
 
 
 def get_prediction(image: np.ndarray) -> Optional[Union[tuple[str, float], str]]:

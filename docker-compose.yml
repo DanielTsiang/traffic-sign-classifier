@@ -25,3 +25,5 @@ services:
             context: ./services/flask
             dockerfile: Dockerfile.flask
         container_name: flask
+        environment:
+            TENSORFLOW_SERVING_HOST: "tensorflow-serving"

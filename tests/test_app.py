@@ -15,7 +15,6 @@ from services.flask import model
 
 # Define global configs
 SAMPLE_PATH = os.path.join(Path(__file__).parents[1].resolve(), "services", "flask", "static", "sample")
-model.MODEL_URI = "http://localhost:8501/v1/models/traffic-sign-classifier:predict"
 
 
 @contextmanager
