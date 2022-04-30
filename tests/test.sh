@@ -1,4 +1,4 @@
-# Run integration git stests
+# Run integration tests
 echo "Starting Docker containers..."
 docker-compose up -d --build
 
