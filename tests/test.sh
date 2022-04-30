@@ -1,6 +1,6 @@
 # Run integration git stests
 echo "Starting Docker containers..."
-docker-compose up -d
+docker-compose up -d --build
 
 echo "Running integration tests..."
 python3 -m unittest discover -s tests  -p "test*"
