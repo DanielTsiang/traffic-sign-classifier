@@ -8,7 +8,7 @@ import numpy as np
 import random
 import os
 
-from services.flask import model
+import model
 
 # Configure application
 app = Flask(__name__)
