@@ -4,15 +4,15 @@ name: Test application
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "non-ssl" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "non-ssl" ]
 
 permissions:
   contents: read
 
 jobs:
-  test:
+  integration_tests:
     runs-on: [ubuntu-18.04]
     steps:
       - uses: actions/checkout@v2
