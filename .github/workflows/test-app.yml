@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   test:
-    runs-on: [ubuntu-18.04]
+    runs-on: ubuntu-latest
     steps:
       - name: Install Docker Compose
         uses: KengoTODA/actions-setup-docker-compose@main
