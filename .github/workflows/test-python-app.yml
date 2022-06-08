@@ -1,0 +1,27 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Test Python application
+
+on:
+  push:
+    branches: [ "heroku" ]
+  pull_request:
+    branches: [ "heroku" ]
+
+permissions:
+  contents: read
+
+jobs:
+  unit_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build image
+        run: docker build -t traffic .
+      - name: Run container
+        run: docker run --rm -d --name traffic -e TF_CPP_MIN_LOG_LEVEL="3" -v "$(pwd)/tests:/tests" -v "$(pwd)/model:/model" -v "$(pwd)/static:/static" traffic > /dev/null  # redirect output excluding errors
+      - name: Install dependencies
+        run: docker exec traffic python3 -m pip install -r requirements_test.txt
+      - name: Run tests
+        run: docker exec traffic python3 -m unittest discover -s /tests -p "test*"
