@@ -36,7 +36,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     # need checkout before using compose-action
     - name: Docker-compose up
-    - uses: isbang/compose-action@v1.1.0
+      uses: isbang/compose-action@v1.1.0
       with:
         compose-file: "./../../../docker-compose.yml"
         up-flags: "--build"
