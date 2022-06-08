@@ -23,4 +23,4 @@ jobs:
       - name: remote-bash
         uses: shinhwagk/remote-bash@0.0.1
         env:
-          REMOTE_BASH_URL: https://github.com/DanielTsiang/traffic-sign-classifier/blob/main/tests/test.sh
+          REMOTE_BASH_URL: https://raw.githubusercontent.com/DanielTsiang/traffic-sign-classifier/main/tests/test.sh
