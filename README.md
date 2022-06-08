@@ -49,3 +49,4 @@ sh tests/test.sh
 * HTML
 * CSS with Bootstrap framework
 * JavaScript with DataTables library
+* GitHub Actions workflows for CI to automate running tests via Docker Compose
