@@ -1,7 +1,7 @@
 # Traffic Sign Classifier
 
 ## Description
-A single-page web app serving a machine learning model which classifies traffic signs.
+A single-page web app serving a Machine Learning model which classifies traffic signs.
 
 This Flask app is served by Gunicorn.
 
