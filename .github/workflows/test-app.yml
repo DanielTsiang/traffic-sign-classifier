@@ -17,10 +17,9 @@ jobs:
     runs-on: [ubuntu-18.04]
     steps:
       - name: Install Docker Compose
-        uses: ndeloof/install-docker-compose@0.0.1
+        uses: KengoTODA/actions-setup-docker-compose@main
         with:
-          version: v2.1.0 # defaults to 'latest'
-          legacy: true    # will also install in PATH as `docker-compose`
+          version: '1.29.2'
       - name: remote-bash
         uses: shinhwagk/remote-bash@0.0.1
         env:
