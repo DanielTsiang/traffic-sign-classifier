@@ -12,7 +12,7 @@ See [here](https://github.com/DanielTsiang/CS50ai/tree/main/project5/traffic) fo
 1. Visit the web application [here](https://traffic-sign-classifier-dt.herokuapp.com/).
 2. Note that the app may take up to 30 seconds to load as it wakes up from automatic sleep if it hasn't been used in a while.
 
-### Video Demo
+### Video Demostration
 https://user-images.githubusercontent.com/74436899/151076061-8875ae51-8c43-4dea-b9bd-9bed501bf234.mp4
 
 ### Running locally in Docker
