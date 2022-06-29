@@ -16,10 +16,15 @@ app = Flask(__name__)
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
-# Configure session to use filesystem (instead of signed cookies)
-app.config["SESSION_FILE_DIR"] = mkdtemp()
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
+# Configure session to use filesystem (instead of signed cookies), and secure cookies
+app.config.update(
+    SESSION_FILE_DIR=mkdtemp(),
+    SESSION_PERMANENT=False,
+    SESSION_TYPE="filesystem",
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_SAMESITE="Lax",
+)
 Session(app)
 
 # Define global configs
@@ -35,12 +40,17 @@ def before_request():
         return redirect(url, code=code)
 
 
-# Ensure responses aren't cached
 @app.after_request
 def after_request(response):
+    # Ensure responses aren't cached
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
+    
+    # Configure HTTP security headers
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
     return response
 
 
