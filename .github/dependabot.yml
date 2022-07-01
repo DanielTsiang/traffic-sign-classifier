@@ -16,8 +16,6 @@ updates:
     commit-message:
       prefix: "dependabot:"
     labels:
-      - "pip"
       - "dependencies"
-    reviewers:
-      - "DanielTsiang"
+      - "python"
     open-pull-requests-limit: 2
