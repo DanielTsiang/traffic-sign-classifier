@@ -8,7 +8,7 @@ import numpy as np
 import random
 import os
 
-from services.flask import model
+import model
 
 # Configure application
 app = Flask(__name__)
@@ -46,7 +46,7 @@ def after_request(response):
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
-    
+
     # Configure HTTP security headers
     response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
     response.headers['X-Content-Type-Options'] = 'nosniff'
@@ -98,8 +98,8 @@ def index():
         class_name, confidence = prediction
 
         response = {
-            "prediction": "Predicted Class: " + class_name,
-            "confidence": "Confidence Score: " + str(confidence),
+            "prediction": f"Predicted Class: {class_name}",
+            "confidence": f"Confidence Score: {str(confidence)}",
             "image_base64": base64_image,
             "image_extension": extension
         }
@@ -108,7 +108,7 @@ def index():
     else:
         # Invalid response
         response = {
-            "prediction": "Error: " + prediction,
+            "prediction": f"Error: {prediction}",
             "image_extension": extension
         }
         if image is not None:
