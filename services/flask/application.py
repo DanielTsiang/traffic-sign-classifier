@@ -34,8 +34,8 @@ SAMPLE_PATH = os.path.join(Path(__file__).parent.resolve(), "static", "sample")
 @app.before_request
 def before_request():
     # If http is requested then redirect to https
-    if request.headers.get('X-Forwarded-Proto') == 'http':
-        url = request.url.replace('http://', 'https://', 1)
+    if request.headers.get("X-Forwarded-Proto") == "http":
+        url = request.url.replace("http://", "https://", 1)
         code = 301
         return redirect(url, code=code)
 
@@ -48,9 +48,11 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
 
     # Configure HTTP security headers
-    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
-    response.headers['X-Content-Type-Options'] = 'nosniff'
-    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    response.headers[
+        "Strict-Transport-Security"
+    ] = "max-age=31536000; includeSubDomains"
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
     return response
 
 
@@ -89,7 +91,11 @@ def index():
     base64_image = base64.b64encode(file_bytes).decode("ascii")
 
     # Decode image into NumPy array and get prediction from model
-    image = cv2.imdecode(np.frombuffer(file_bytes, dtype=np.uint8), cv2.IMREAD_COLOR) if file_bytes else None
+    image = (
+        cv2.imdecode(np.frombuffer(file_bytes, dtype=np.uint8), cv2.IMREAD_COLOR)
+        if file_bytes
+        else None
+    )
     prediction = model.get_prediction(image)
 
     # Get results from response and return `result.html`
@@ -101,16 +107,13 @@ def index():
             "prediction": f"Predicted Class: {class_name}",
             "confidence": f"Confidence Score: {str(confidence)}",
             "image_base64": base64_image,
-            "image_extension": extension
+            "image_extension": extension,
         }
 
         flash("Success", "success")
     else:
         # Invalid response
-        response = {
-            "prediction": f"Error: {prediction}",
-            "image_extension": extension
-        }
+        response = {"prediction": f"Error: {prediction}", "image_extension": extension}
         if image is not None:
             response["image_base64"] = base64_image
 

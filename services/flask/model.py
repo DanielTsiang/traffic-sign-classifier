@@ -51,7 +51,7 @@ CLASSES = [
     "Keep left",
     "Roundabout mandatory",
     "End of no passing",
-    "End of no passing vehicles over 3.5 metrics tons"
+    "End of no passing vehicles over 3.5 metrics tons",
 ]
 TENSORFLOW_SERVING_HOST = os.environ.get("TENSORFLOW_SERVING_HOST", "localhost")
 TENSORFLOW_SERVING_PORT = int(os.environ.get("TENSORFLOW_SERVING_PORT", "8501"))
@@ -67,9 +67,7 @@ def get_prediction(image: np.ndarray) -> Optional[Union[tuple[str, float], str]]
     expanded_image = np.expand_dims(resized_image, axis=0)
 
     # Create JSON payload that TensorFlow model expects
-    data = json.dumps({
-        "instances": expanded_image.tolist()
-    })
+    data = json.dumps({"instances": expanded_image.tolist()})
 
     # Make POST request to model served by TensorFlow Serving
     response = requests.post(MODEL_URI, data=data.encode("utf-8"))
