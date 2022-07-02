@@ -4,9 +4,9 @@ name: Test application
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "non-ssl" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "non-ssl" ]
 
 permissions:
   contents: read

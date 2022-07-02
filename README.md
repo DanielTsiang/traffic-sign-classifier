@@ -1,9 +1,9 @@
 # Traffic Sign Classifier
 
 [![Traffic Sign Classifier](https://img.shields.io/website-up-down-green-red/https/danieltsiang.github.io.svg)](https://traffic-sign-classifier-dt.herokuapp.com/)
-[![Test App Status](https://github.com/DanielTsiang/traffic-sign-classifier/actions/workflows/test-app.yml/badge.svg?branch=main)](https://github.com/DanielTsiang/traffic-sign-classifier/actions?query=branch%3Amain)
+[![Test App Status](https://github.com/DanielTsiang/traffic-sign-classifier/actions/workflows/test-app.yml/badge.svg?branch=non-ssl)](https://github.com/DanielTsiang/traffic-sign-classifier/actions?query=branch%3Anon-ssl)
 [![GitHub branches](https://badgen.net/github/branches/DanielTsiang/traffic-sign-classifier?&kill_cache=1)](https://github.com/DanielTsiang/traffic-sign-classifier/branches)
-[![Known Vulnerabilities](https://snyk.io/test/github/DanielTsiang/traffic-sign-classifier/badge.svg?targetFile=services/flask/requirements.txt)](https://snyk.io/test/github/DanielTsiang/traffic-sign-classifier?targetFile=services/flask/requirements.txt)
+[![Known Vulnerabilities](https://snyk.io/test/github/DanielTsiang/traffic-sign-classifier/non-ssl/badge.svg?targetFile=services/flask/requirements.txt)](https://snyk.io/test/github/DanielTsiang/traffic-sign-classifier/non-ssl?targetFile=services/flask/requirements.txt)
 [![Profile views](https://gpvc.arturio.dev/traffic-sign-classifier)](https://gpvc.arturio.dev/traffic-sign-classifier)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Buymeacoffee](https://badgen.net/badge/icon/buymeacoffee?icon=buymeacoffee&label)](https://www.buymeacoffee.com/dantsiang8)
@@ -25,7 +25,7 @@ https://user-images.githubusercontent.com/74436899/151076061-8875ae51-8c43-4dea-
 
 ## Specification
 * Design and build a single-page web app to serve a Machine Learning model I trained.
-* Serve the Python Flask app with Gunicorn and use NGINX as the reverse proxy. Customise NGINX config to force SSL.
+* Serve the Python Flask app with Gunicorn and use NGINX as the reverse proxy.
 * Serve the TensorFlow model using TensorFlow Serving for optimal performance and managing model versioning.
 * Flask, NGINX and TensorFlow Serving Docker containers are orchestrated using Docker Compose.
 * Users can upload their own images or select a random image for the model to classify.
@@ -62,11 +62,8 @@ https://user-images.githubusercontent.com/74436899/151076061-8875ae51-8c43-4dea-
 ## Running locally
 1. Ensure you have Docker installed.
 2. To start the app, in the root folder where `docker-compose.yml` is contained, run `docker-compose up` in the terminal.
-3. Visit `localhost:1337` in your web browser. Bypass the invalid SSL certificate warning.
-E.g. in Chrome, click on the screen with the page open and type `thisisunsafe` to bypass the warning.
-4. If you are unable to bypass the warning, checkout the `non-ssl` branch instead to run the Docker
-containers without SSL enforced. In this branch, visit `localhost` instead.
-5. To shut down the app, run `docker-compose down` in the terminal or hit `CTRL+C`.
+3. Visit `localhost` in your web browser.
+4. To shut down the app, run `docker-compose down` in the terminal or hit `CTRL+C`.
 
 ### Testing
 To run the integration tests, in the root folder, run the following in the terminal:
