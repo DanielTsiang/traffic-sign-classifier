@@ -1,6 +1,6 @@
 # Traffic Sign Classifier
 
-[![Traffic Sign Classifier](https://img.shields.io/website-up-down-green-red/https/danieltsiang.github.io.svg)](https://traffic-sign-classifier-dt.herokuapp.com/)
+[![Traffic Sign Classifier](https://img.shields.io/website-up-down-green-red/https/danieltsiang.github.io.svg)](https://traffic-sign-classifier-ztlt.onrender.com/)
 [![Test App Status](https://github.com/DanielTsiang/traffic-sign-classifier/actions/workflows/test-app.yml/badge.svg?branch=main)](https://github.com/DanielTsiang/traffic-sign-classifier/actions?query=branch%3Amain)
 [![GitHub branches](https://badgen.net/github/branches/DanielTsiang/traffic-sign-classifier?&kill_cache=1)](https://github.com/DanielTsiang/traffic-sign-classifier/branches)
 [![Known Vulnerabilities](https://snyk.io/test/github/DanielTsiang/traffic-sign-classifier/badge.svg?targetFile=services/flask/requirements.txt)](https://snyk.io/test/github/DanielTsiang/traffic-sign-classifier?targetFile=services/flask/requirements.txt)
@@ -17,7 +17,7 @@ The Machine Learning model is a Convoluted Neural Network (CNN) trained by mysel
 See [here](https://github.com/DanielTsiang/CS50ai/tree/main/project5/traffic) for more details on how I trained this CNN.
 
 ## Getting Started
-1. Visit the web application [here](https://traffic-sign-classifier-dt.herokuapp.com/).
+1. Visit the web application [here](https://traffic-sign-classifier-ztlt.onrender.com/).
 2. Note that the app may take up to 30 seconds to load as it wakes up from automatic sleep if it hasn't been used in a while.
 
 ### Video Demo
