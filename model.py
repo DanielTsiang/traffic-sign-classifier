@@ -1,13 +1,16 @@
+from pathlib import Path
 from typing import Optional, Union
 import cv2
-import json
 import numpy as np
 import os
-import requests
+import tensorflow as tf
 
 # Define global configs
 SIZE = 30
 CONFIDENCE_THRESHOLD = 0.988
+MODEL = tf.keras.models.load_model(
+            os.path.join(Path(__file__).parent, "model", "1")
+        )
 CLASSES = [
     "Speed limit (20km/h)",
     "Speed limit (30km/h)",
@@ -53,10 +56,6 @@ CLASSES = [
     "End of no passing",
     "End of no passing vehicles over 3.5 metrics tons",
 ]
-TENSORFLOW_SERVING_HOST = os.environ.get("TENSORFLOW_SERVING_HOST", "localhost")
-TENSORFLOW_SERVING_PORT = int(os.environ.get("TENSORFLOW_SERVING_PORT", "8501"))
-MODEL_NAME = "traffic-sign-classifier"
-MODEL_URI = f"http://{TENSORFLOW_SERVING_HOST}:{TENSORFLOW_SERVING_PORT}/v1/models/{MODEL_NAME}:predict"
 
 
 def get_prediction(image: np.ndarray) -> Optional[Union[tuple[str, float], str]]:
@@ -66,12 +65,7 @@ def get_prediction(image: np.ndarray) -> Optional[Union[tuple[str, float], str]]
     resized_image = cv2.resize(image, (SIZE, SIZE))
     expanded_image = np.expand_dims(resized_image, axis=0)
 
-    # Create JSON payload that TensorFlow model expects
-    data = json.dumps({"instances": expanded_image.tolist()})
-
-    # Make POST request to model served by TensorFlow Serving
-    response = requests.post(MODEL_URI, data=data.encode("utf-8"))
-    prediction = np.array(response.json()["predictions"][0])
+    prediction = MODEL.predict(expanded_image)[0]
 
     # Get top prediction and its label i.e. class name
     top_prediction_index = prediction.argsort()[::-1][0]

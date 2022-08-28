@@ -10,11 +10,11 @@ import os
 import random
 import unittest
 
-from services.flask.application import app
-from services.flask import model
+from application import app
+import model
 
 # Define global configs
-SAMPLE_PATH = os.path.join(Path(__file__).parents[1].resolve(), "services", "flask", "static", "sample")
+SAMPLE_PATH = os.path.join(Path(__file__).parents[1].resolve(), "static", "sample")
 
 
 @contextmanager

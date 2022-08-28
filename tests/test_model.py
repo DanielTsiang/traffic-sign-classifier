@@ -12,11 +12,11 @@ class ModelTestCase(unittest.TestCase):
 
     def setUp(self):
         self.valid_images = [".jpg"]
-        self.directory = os.path.join(Path(__file__).parents[1].resolve(), "services", "flask", "static", "sample")
+        self.directory = os.path.join(Path(__file__).parents[1].resolve(), "static", "sample")
         self.image_width = 30
         self.image_height = 30
         self.model = tf.keras.models.load_model(
-            os.path.join(Path(__file__).parents[1].resolve(), "services", "tensorflow-serving", "model", "1")
+            os.path.join(Path(__file__).parents[1].resolve(),"model", "1")
         )
 
     def test_model(self):
