@@ -1,6 +1,6 @@
 # Traffic Sign Classifier
 
-[![Traffic Sign Classifier](https://img.shields.io/website-up-down-green-red/https/danieltsiang.github.io.svg)](https://traffic-sign-classifier-ztlt.onrender.com/)
+[![Traffic Sign Classifier](https://img.shields.io/website-up-down-green-red/https/danieltsiang.github.io.svg)](https://traffic-sign-classifier-dt.onrender.com/)
 [![Test App Status](https://github.com/DanielTsiang/traffic-sign-classifier/actions/workflows/test-app.yml/badge.svg?branch=main)](https://github.com/DanielTsiang/traffic-sign-classifier/actions?query=branch%3Amain)
 [![GitHub branches](https://badgen.net/github/branches/DanielTsiang/traffic-sign-classifier?&kill_cache=1)](https://github.com/DanielTsiang/traffic-sign-classifier/branches)
 [![Known Vulnerabilities](https://snyk.io/test/github/DanielTsiang/traffic-sign-classifier/badge.svg?targetFile=services/flask/requirements.txt)](https://snyk.io/test/github/DanielTsiang/traffic-sign-classifier?targetFile=services/flask/requirements.txt)
@@ -17,8 +17,7 @@ The Machine Learning model is a Convoluted Neural Network (CNN) trained by mysel
 See [here](https://github.com/DanielTsiang/CS50ai/tree/main/project5/traffic) for more details on how I trained this CNN.
 
 ## Getting Started
-1. Visit the web application [here](https://traffic-sign-classifier-ztlt.onrender.com/).
-2. Note that the app may take up to 30 seconds to load as it wakes up from automatic sleep if it hasn't been used in a while.
+1. Visit the web application [here](https://traffic-sign-classifier-dt.onrender.com/).
 
 ### Video Demo
 https://user-images.githubusercontent.com/74436899/151076061-8875ae51-8c43-4dea-b9bd-9bed501bf234.mp4
@@ -47,6 +46,7 @@ https://user-images.githubusercontent.com/74436899/151076061-8875ae51-8c43-4dea-
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?logo=javascript&logoColor=%23F7DF1E)
 ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?logo=githubactions&logoColor=white)
 ![Dependabot](https://img.shields.io/badge/dependabot-025E8C?logo=dependabot&logoColor=white)
+![Render](https://img.shields.io/badge/render-46E3B7.svg?logo=render&logoColor=white)
 
 * Docker with Docker Compose
 * TensorFlow with TensorFlow Serving
@@ -58,6 +58,7 @@ https://user-images.githubusercontent.com/74436899/151076061-8875ae51-8c43-4dea-
 * JavaScript with DataTables library
 * GitHub Actions workflows for CI to automate running tests via Docker Compose
 * Dependabot to keep dependencies up to date and mitigate security vulnerabilities
+* Render for deployment
 
 ## Running locally
 1. Ensure you have Docker installed.

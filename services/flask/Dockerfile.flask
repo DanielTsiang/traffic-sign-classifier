@@ -18,4 +18,4 @@ RUN pip3 install -r /services/flask/requirements.txt
 ENV PYTHONPATH "${PYTHONPATH}:/services/flask"
 
 # Start gunicorn
-CMD ["gunicorn", "-c", "/services/flask/gunicorn_config.py", "--preload", "wsgi:app"]
+CMD ["gunicorn", "--log-config", "/services/flask/logging.conf", "-c", "/services/flask/gunicorn_config.py", "--preload", "wsgi:app"]
