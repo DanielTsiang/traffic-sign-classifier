@@ -8,3 +8,4 @@ requests~=2.28.1
 # Testing requirements
 blinker~=1.5
 tensorflow~=2.11.0
+setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
