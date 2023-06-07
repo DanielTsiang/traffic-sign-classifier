@@ -7,5 +7,5 @@ requests~=2.31.0
 setuptools>=65.5.1 # not directly required, pinned to avoid a vulnerability
 
 # Testing requirements
-blinker~=1.5
+blinker~=1.6
 tensorflow~=2.11.0
