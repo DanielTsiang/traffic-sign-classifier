@@ -1,10 +1,10 @@
 # Traffic Sign Classifier
 
 [![Traffic Sign Classifier](https://img.shields.io/website-up-down-green-red/https/danieltsiang.github.io.svg)](https://traffic-sign-classifier-dt.onrender.com/)
-[![Test App Status](https://github.com/DanielTsiang/traffic-sign-classifier/actions/workflows/test-app.yml/badge.svg?branch=main)](https://github.com/DanielTsiang/traffic-sign-classifier/actions?query=branch%3Amain)
+[![Test app status](https://github.com/DanielTsiang/traffic-sign-classifier/actions/workflows/test-app.yml/badge.svg?branch=main)](https://github.com/DanielTsiang/traffic-sign-classifier/actions?query=branch%3Amain)
 [![GitHub branches](https://badgen.net/github/branches/DanielTsiang/traffic-sign-classifier?&kill_cache=1)](https://github.com/DanielTsiang/traffic-sign-classifier/branches)
-[![Known Vulnerabilities](https://snyk.io/test/github/DanielTsiang/traffic-sign-classifier/badge.svg?targetFile=services/flask/requirements.txt)](https://snyk.io/test/github/DanielTsiang/traffic-sign-classifier?targetFile=services/flask/requirements.txt)
-[![Profile views](https://gpvc.arturio.dev/traffic-sign-classifier)](https://gpvc.arturio.dev/traffic-sign-classifier)
+[![Security](https://snyk.io/test/github/DanielTsiang/traffic-sign-classifier/badge.svg?targetFile=services/flask/requirements.txt)](https://snyk.io/test/github/DanielTsiang/traffic-sign-classifier?targetFile=services/flask/requirements.txt)
+[![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Ftraffic-sign-classifier-dt.onrender.com%2F&label=Hits&countColor=%2337d67a&style=flat)](https://visitorbadge.io/status?path=https%3A%2F%2Ftraffic-sign-classifier-dt.onrender.com%2F)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Buymeacoffee](https://badgen.net/badge/icon/buymeacoffee?icon=buymeacoffee&label)](https://www.buymeacoffee.com/dantsiang8)
 
