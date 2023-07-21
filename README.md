@@ -6,7 +6,7 @@
 [![Security](https://snyk.io/test/github/DanielTsiang/traffic-sign-classifier/badge.svg?targetFile=services/flask/requirements.txt)](https://snyk.io/test/github/DanielTsiang/traffic-sign-classifier?targetFile=services/flask/requirements.txt)
 [![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Ftraffic-sign-classifier-dt.onrender.com%2F&label=Hits&countColor=%2337d67a&style=flat)](https://visitorbadge.io/status?path=https%3A%2F%2Ftraffic-sign-classifier-dt.onrender.com%2F)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Buymeacoffee](https://badgen.net/badge/icon/buymeacoffee?icon=buymeacoffee&label)](https://www.buymeacoffee.com/dantsiang8)
+[![Buymeacoffee](https://img.shields.io/badge/Donate-Buy%20Me%20A%20Coffee-orange.svg?style=flat&logo=buymeacoffee)](https://www.buymeacoffee.com/dantsiang8)
 
 ## Description
 A single-page web app serving a machine learning model which classifies traffic signs.
