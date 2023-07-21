@@ -1,0 +1,15 @@
+# Rebase pull requests on push to main branch
+
+name: Rebase Pull Requests
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  rebase:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: peter-evans/rebase@v2
+        with:
+          base: main
+          
