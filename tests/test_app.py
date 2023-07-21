@@ -75,7 +75,10 @@ class AppTestCase(unittest.TestCase):
         # THEN
         self.assertEqual(HTTPStatus.OK, response.status_code)
         self.assertEqual("result.html", template.name)
-        self.assertEqual("Predicted Class: " + model.CLASSES[int(file_name)], result["prediction"])
+        self.assertEqual(
+            f"Predicted Class: {model.CLASSES[int(file_name)]}",
+            result["prediction"],
+        )
         self.assertEqual("Confidence Score: 1.0", result["confidence"])
         self.assertEqual(base64_image, result["image_base64"])
         self.assertEqual(extension, result["image_extension"])
