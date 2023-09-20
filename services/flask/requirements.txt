@@ -8,4 +8,4 @@ setuptools>=65.5.1 # not directly required, pinned to avoid a vulnerability
 
 # Testing requirements
 blinker~=1.6
-tensorflow~=2.11.0
+tensorflow~=2.13.0
