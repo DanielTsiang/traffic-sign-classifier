@@ -1,14 +1,14 @@
+import base64
+import os
+import random
 from pathlib import Path
+from tempfile import mkdtemp
+
+import cv2
+import model
+import numpy as np
 from flask import Flask, flash, redirect, render_template, request
 from flask_session import Session
-from tempfile import mkdtemp
-import base64
-import cv2
-import numpy as np
-import random
-import os
-
-import model
 
 # Configure application
 app = Flask(__name__)

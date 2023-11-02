@@ -1,6 +1,6 @@
 import warnings
-from os import getenv as env
 from multiprocessing import cpu_count
+from os import getenv as env
 
 warnings.filterwarnings("ignore")
 
