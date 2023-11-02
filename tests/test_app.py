@@ -1,20 +1,23 @@
-from contextlib import contextmanager
-from flask import template_rendered
-from http import HTTPStatus
-from io import BytesIO
-from pathlib import Path
 import base64
-import cv2
-import numpy as np
 import os
 import random
 import unittest
+from contextlib import contextmanager
+from http import HTTPStatus
+from io import BytesIO
+from pathlib import Path
 
-from services.flask.application import app
+import cv2
+import numpy as np
+from flask import template_rendered
+
 from services.flask import model
+from services.flask.application import app
 
 # Define global configs
-SAMPLE_PATH = os.path.join(Path(__file__).parents[1].resolve(), "services", "flask", "static", "sample")
+SAMPLE_PATH = os.path.join(
+    Path(__file__).parents[1].resolve(), "services", "flask", "static", "sample"
+)
 
 
 @contextmanager
@@ -60,10 +63,7 @@ class AppTestCase(unittest.TestCase):
         base64_image = base64.b64encode(file_bytes).decode("ascii")
 
         # Create payload for POST request to app
-        payload = {
-            "file": (BytesIO(file_bytes), random_filename),
-            "action": "upload"
-        }
+        payload = {"file": (BytesIO(file_bytes), random_filename), "action": "upload"}
 
         with app.test_client() as test_client:
             with captured_templates(app) as templates:
@@ -75,7 +75,9 @@ class AppTestCase(unittest.TestCase):
         # THEN
         self.assertEqual(HTTPStatus.OK, response.status_code)
         self.assertEqual("result.html", template.name)
-        self.assertEqual("Predicted Class: " + model.CLASSES[int(file_name)], result["prediction"])
+        self.assertEqual(
+            "Predicted Class: " + model.CLASSES[int(file_name)], result["prediction"]
+        )
         self.assertEqual("Confidence Score: 1.0", result["confidence"])
         self.assertEqual(base64_image, result["image_base64"])
         self.assertEqual(extension, result["image_extension"])
@@ -97,10 +99,7 @@ class AppTestCase(unittest.TestCase):
         base64_image = base64.b64encode(image_bytes).decode("ascii")
 
         # Create payload for POST request to app
-        payload = {
-            "file": (BytesIO(image_bytes), file_name),
-            "action": "upload"
-        }
+        payload = {"file": (BytesIO(image_bytes), file_name), "action": "upload"}
 
         with app.test_client() as test_client:
             with captured_templates(app) as templates:
@@ -127,10 +126,7 @@ class AppTestCase(unittest.TestCase):
         extension = ".jpg"
 
         # Create payload for POST request to app
-        payload = {
-            "file": (BytesIO(image_bytes), file_name),
-            "action": "upload"
-        }
+        payload = {"file": (BytesIO(image_bytes), file_name), "action": "upload"}
 
         with app.test_client() as test_client:
             with captured_templates(app) as templates:
@@ -148,9 +144,7 @@ class AppTestCase(unittest.TestCase):
     def test_random(self):
         # GIVEN
         # Create payload for POST request to app
-        payload = {
-            "action": "random"
-        }
+        payload = {"action": "random"}
 
         with app.test_client() as test_client:
             with captured_templates(app) as templates:

@@ -1,8 +1,9 @@
-from typing import Optional, Union
-import cv2
 import json
-import numpy as np
 import os
+from typing import Optional, Union
+
+import cv2
+import numpy as np
 import requests
 
 # Define global configs

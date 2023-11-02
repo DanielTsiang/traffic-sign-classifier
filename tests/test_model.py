@@ -1,22 +1,30 @@
+import os
+import unittest
 from pathlib import Path
+
 import cv2
 import numpy as np
-import os
 import tensorflow as tf
-import unittest
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"  # Disable tensorflow debugging logs
 
 
 class ModelTestCase(unittest.TestCase):
-
     def setUp(self):
         self.valid_images = [".jpg"]
-        self.directory = os.path.join(Path(__file__).parents[1].resolve(), "services", "flask", "static", "sample")
+        self.directory = os.path.join(
+            Path(__file__).parents[1].resolve(), "services", "flask", "static", "sample"
+        )
         self.image_width = 30
         self.image_height = 30
         self.model = tf.keras.models.load_model(
-            os.path.join(Path(__file__).parents[1].resolve(), "services", "tensorflow-serving", "model", "1")
+            os.path.join(
+                Path(__file__).parents[1].resolve(),
+                "services",
+                "tensorflow-serving",
+                "model",
+                "1",
+            )
         )
 
     def test_model(self):
@@ -29,8 +37,12 @@ class ModelTestCase(unittest.TestCase):
 
                 # GIVEN
                 # Load valid images into memory and preprocess them into format TensorFlow model expects
-                loaded_image = cv2.imread(os.path.join(self.directory, filename), cv2.IMREAD_COLOR)
-                resized_image = cv2.resize(loaded_image, (self.image_width, self.image_height))
+                loaded_image = cv2.imread(
+                    os.path.join(self.directory, filename), cv2.IMREAD_COLOR
+                )
+                resized_image = cv2.resize(
+                    loaded_image, (self.image_width, self.image_height)
+                )
                 expanded_image = np.expand_dims(resized_image, axis=0)
 
                 # WHEN
@@ -39,8 +51,12 @@ class ModelTestCase(unittest.TestCase):
                 # THEN
                 # Get top prediction index and compare with expected value
                 top_prediction_index = prediction[0].argsort()[::-1][0]
-                error_message = f"Expected {file_number} but got {top_prediction_index} instead."
-                self.assertEqual(int(file_number), int(top_prediction_index), error_message)
+                error_message = (
+                    f"Expected {file_number} but got {top_prediction_index} instead."
+                )
+                self.assertEqual(
+                    int(file_number), int(top_prediction_index), error_message
+                )
 
 
 if __name__ == "__main__":
