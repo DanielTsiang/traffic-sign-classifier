@@ -76,12 +76,12 @@ def get_prediction(image: np.ndarray) -> Optional[Union[tuple[str, float], str]]
 
     # Get top prediction and its label i.e. class name
     top_prediction_index = prediction.argsort()[::-1][0]
-    top_prediction_label = CLASSES[top_prediction_index]
-
     # Get confidence score of top prediction
     confidence = prediction[top_prediction_index]
 
     if confidence > CONFIDENCE_THRESHOLD:
+        top_prediction_label = CLASSES[top_prediction_index]
+
         return top_prediction_label, np.round(confidence, 2)
 
     return "Unknown image"
