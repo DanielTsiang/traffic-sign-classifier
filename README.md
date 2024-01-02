@@ -71,6 +71,6 @@ containers without SSL enforced. In this branch, visit `localhost` instead.
 
 ### Testing
 To run the integration tests, in the root folder, run the following in the terminal:
-```
+```shell
 sh tests/test.sh
 ```
