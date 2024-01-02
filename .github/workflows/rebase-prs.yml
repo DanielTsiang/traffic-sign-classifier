@@ -9,6 +9,7 @@ jobs:
   rebase:
     runs-on: ubuntu-latest
     permissions:
+      actions: write
       contents: write
     steps:
       - uses: peter-evans/rebase@v2
