@@ -9,5 +9,4 @@ opencv-python-headless~=4.9.0.80
 pytest~=7.4.4
 requests~=2.31.0
 setuptools>=65.5.1 # not directly required, pinned to avoid a vulnerability
-# tensorflow is a testing requirement
 tensorflow~=2.15.0
