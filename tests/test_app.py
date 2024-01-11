@@ -1,23 +1,17 @@
 import base64
-import os
 import random
-import unittest
 from contextlib import contextmanager
 from http import HTTPStatus
 from io import BytesIO
-from pathlib import Path
 
 import cv2
 import numpy as np
+import pytest
+from conftest import *
 from flask import template_rendered
 
 from services.flask import model
 from services.flask.application import app
-
-# Define global configs
-SAMPLE_PATH = os.path.join(
-    Path(__file__).parents[1].resolve(), "services", "flask", "static", "sample"
-)
 
 
 @contextmanager
@@ -34,134 +28,140 @@ def captured_templates(app):
         template_rendered.disconnect(record, app)
 
 
-class AppTestCase(unittest.TestCase):
-    def test_index(self):
-        # GIVEN
-        with app.test_client() as test_client:
-            with captured_templates(app) as templates:
-                # WHEN
-                response = test_client.get("/")
-                template, context = templates[0]
+def test_index():
+    # GIVEN
+    with app.test_client() as test_client:
+        with captured_templates(app) as templates:
+            # WHEN
+            response = test_client.get("/")
+            template, context = templates[0]
 
-        # THEN
-        self.assertEqual(HTTPStatus.OK, response.status_code)
-        self.assertEqual("index.html", template.name)
-        self.assertEqual(model.CLASSES, context["classes"])
+    # THEN
+    assert response.status_code == HTTPStatus.OK
+    assert template.name == "index.html"
+    assert context["classes"] == model.CLASSES
 
-    def test_valid_upload(self):
-        # GIVEN
-        # Get random sample image and read image bytes
-        random_filename = random.choice(os.listdir(SAMPLE_PATH))
-        with open(os.path.join(SAMPLE_PATH, random_filename), "rb") as file:
-            file_bytes = file.read()
 
-        # Get image file name and extension
-        file_name = os.path.splitext(random_filename)[0]
-        extension = os.path.splitext(random_filename)[1]
+def test_valid_upload():
+    # GIVEN
+    # Get random sample image and read image bytes
+    random_filename = random.choice(list(SAMPLE_PATH.iterdir()))
+    with open((SAMPLE_PATH / random_filename).as_posix(), "rb") as file:
+        file_bytes = file.read()
 
-        # Convert image into base64 string
-        base64_image = base64.b64encode(file_bytes).decode("ascii")
+    # Get image file name and extension
+    file_name = random_filename.stem
+    extension = random_filename.suffix
 
-        # Create payload for POST request to app
-        payload = {"file": (BytesIO(file_bytes), random_filename), "action": "upload"}
+    # Convert image into base64 string
+    base64_image = base64.b64encode(file_bytes).decode("ascii")
 
-        with app.test_client() as test_client:
-            with captured_templates(app) as templates:
-                # WHEN
-                response = test_client.post("/", data=payload)
-                template, context = templates[0]
-                result = context["result"]
+    # Create payload for POST request to app
+    payload = {"file": (BytesIO(file_bytes), random_filename), "action": "upload"}
 
-        # THEN
-        self.assertEqual(HTTPStatus.OK, response.status_code)
-        self.assertEqual("result.html", template.name)
-        self.assertEqual(
-            f"Predicted Class: {model.CLASSES[int(file_name)]}",
-            result["prediction"],
-        )
-        self.assertEqual("Confidence Score: 1.0", result["confidence"])
-        self.assertEqual(base64_image, result["image_base64"])
-        self.assertEqual(extension, result["image_extension"])
+    with app.test_client() as test_client:
+        with captured_templates(app) as templates:
+            # WHEN
+            response = test_client.post("/", data=payload)
+            template, context = templates[0]
+            result = context["result"]
 
-    def test_unknown_upload(self):
-        # GIVEN
-        # Create blank black image
-        image = np.zeros((100, 100, 3), dtype=np.uint8)
+    # THEN
+    assert response.status_code == HTTPStatus.OK
+    assert template.name == "result.html"
+    assert result["prediction"] == f"Predicted Class: {model.CLASSES[int(file_name)]}"
+    assert result["confidence"] == "Confidence Score: 1.0"
+    assert result["image_base64"] == base64_image
+    assert result["image_extension"] == extension
 
-        # Encode image into data stream and get image bytes
-        image_encoded = cv2.imencode(".jpg", image)[1]
-        image_bytes = image_encoded.tobytes()
 
-        # Set image file name and extension
-        file_name = "blank.jpg"
-        extension = ".jpg"
+def test_unknown_upload():
+    # GIVEN
+    # Create blank black image
+    image = np.zeros((100, 100, 3), dtype=np.uint8)
 
-        # Convert image into base64 string
-        base64_image = base64.b64encode(image_bytes).decode("ascii")
+    # Encode image into data stream and get image bytes
+    image_encoded = cv2.imencode(".jpg", image)[1]
+    image_bytes = image_encoded.tobytes()
 
-        # Create payload for POST request to app
-        payload = {"file": (BytesIO(image_bytes), file_name), "action": "upload"}
+    # Set image file name and extension
+    file_name = "blank.jpg"
+    extension = ".jpg"
 
-        with app.test_client() as test_client:
-            with captured_templates(app) as templates:
-                # WHEN
-                response = test_client.post("/", data=payload)
-                template, context = templates[0]
-                result = context["result"]
+    # Convert image into base64 string
+    base64_image = base64.b64encode(image_bytes).decode("ascii")
 
-        # THEN
-        self.assertEqual(HTTPStatus.OK, response.status_code)
-        self.assertEqual("result.html", template.name)
-        self.assertEqual("Error: Unknown image", result["prediction"])
-        self.assertEqual(base64_image, result["image_base64"])
-        self.assertEqual(extension, result["image_extension"])
+    # Create payload for POST request to app
+    payload = {"file": (BytesIO(image_bytes), file_name), "action": "upload"}
 
-    def test_invalid_upload(self):
-        # GIVEN
-        # Create invalid image
-        image = "invalid"
-        image_bytes = str.encode(image)
+    with app.test_client() as test_client:
+        with captured_templates(app) as templates:
+            # WHEN
+            response = test_client.post("/", data=payload)
+            template, context = templates[0]
+            result = context["result"]
 
-        # Set image file name and extension
-        file_name = "invalid.jpg"
-        extension = ".jpg"
+    # THEN
+    assert response.status_code == HTTPStatus.OK
+    assert template.name == "result.html"
+    assert result["prediction"] == "Error: Unknown image"
+    assert result["image_base64"] == base64_image
+    assert result["image_extension"] == extension
 
-        # Create payload for POST request to app
-        payload = {"file": (BytesIO(image_bytes), file_name), "action": "upload"}
 
-        with app.test_client() as test_client:
-            with captured_templates(app) as templates:
-                # WHEN
-                response = test_client.post("/", data=payload)
-                template, context = templates[0]
-                result = context["result"]
+def test_invalid_upload():
+    # GIVEN
+    # Create invalid image
+    image = "invalid"
+    image_bytes = str.encode(image)
 
-        # THEN
-        self.assertEqual(HTTPStatus.OK, response.status_code)
-        self.assertEqual("result.html", template.name)
-        self.assertEqual("Error: Invalid image uploaded", result["prediction"])
-        self.assertEqual(extension, result["image_extension"])
+    # Set image file name and extension
+    file_name = "invalid.jpg"
+    extension = ".jpg"
 
-    def test_random(self):
-        # GIVEN
-        # Create payload for POST request to app
-        payload = {"action": "random"}
+    # Create payload for POST request to app
+    payload = {"file": (BytesIO(image_bytes), file_name), "action": "upload"}
 
-        with app.test_client() as test_client:
-            with captured_templates(app) as templates:
-                # WHEN
-                response = test_client.post("/", data=payload)
-                template, context = templates[0]
-                result = context["result"]
+    with app.test_client() as test_client:
+        with captured_templates(app) as templates:
+            # WHEN
+            response = test_client.post("/", data=payload)
+            template, context = templates[0]
+            result = context["result"]
 
-        # THEN
-        self.assertEqual(HTTPStatus.OK, response.status_code)
-        self.assertEqual("result.html", template.name)
-        self.assertIn("Predicted Class:", result["prediction"])
-        self.assertEqual("Confidence Score: 1.0", result["confidence"])
-        self.assertIn("image_base64", result)
-        self.assertIn("image_extension", result)
+    # THEN
+    assert response.status_code == HTTPStatus.OK
+    assert template.name == "result.html"
+    assert result["prediction"] == "Error: Invalid image uploaded"
+    assert result["image_extension"] == extension
+
+
+def test_random():
+    # GIVEN
+    # Create payload for POST request to app
+    payload = {"action": "random"}
+
+    with app.test_client() as test_client:
+        with captured_templates(app) as templates:
+            # WHEN
+            response = test_client.post("/", data=payload)
+            template, context = templates[0]
+            result = context["result"]
+
+    # THEN
+    assert response.status_code == HTTPStatus.OK
+    assert template.name == "result.html"
+    assert "Predicted Class:" in result["prediction"]
+    assert result["confidence"] == "Confidence Score: 1.0"
+    assert "image_base64" in result
+    assert "image_extension" in result
 
 
 if __name__ == "__main__":
-    unittest.main()
+    import subprocess
+
+    try:
+        subprocess.run(["docker-compose", "up", "-d"])
+        pytest.main()
+    finally:
+        subprocess.run(["docker-compose", "down"])

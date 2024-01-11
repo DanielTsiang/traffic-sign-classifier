@@ -22,4 +22,4 @@ jobs:
       - name: List container
         run: docker-compose ps
       - name: Run tests
-        run: docker-compose run --rm -e TF_CPP_MIN_LOG_LEVEL="3" -v "$(pwd)/tests:/tests" -v "$(pwd)/services:/services" flask python3 -m unittest discover -s /tests -p "test*"
+        run: docker-compose run --rm -e TF_CPP_MIN_LOG_LEVEL="3" -v "$(pwd)/tests:/tests" -v "$(pwd)/services:/services" flask python -m pytest tests/

@@ -1,13 +1,13 @@
 # Run integration tests
 echo "======= Starting Docker containers ======="
-docker-compose up -d --build
+docker-compose up -d
 
 echo "======= Running integration tests ======="
 docker-compose run --rm \
   -e TF_CPP_MIN_LOG_LEVEL="3" \
   -v "$(pwd)/tests:/tests" \
   -v "$(pwd)/services:/services" \
-  flask python3 -m unittest discover -s /tests -p "test*"
+  flask python -m pytest tests/
 
 echo "======= Cleaning up Docker ======="
 docker-compose down
