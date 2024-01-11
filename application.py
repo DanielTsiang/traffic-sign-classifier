@@ -4,10 +4,11 @@ from pathlib import Path
 from tempfile import mkdtemp
 
 import cv2
-import model
 import numpy as np
 from flask import Flask, flash, redirect, render_template, request
 from flask_session import Session
+
+import model
 
 # Configure application
 app = Flask(__name__)
