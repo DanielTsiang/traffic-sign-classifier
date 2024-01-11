@@ -1,5 +1,4 @@
 import base64
-import os
 import random
 from pathlib import Path
 from tempfile import mkdtemp
@@ -28,7 +27,7 @@ app.config.update(
 Session(app)
 
 # Define global configs
-SAMPLE_PATH = os.path.join(Path(__file__).parent.resolve(), "static", "sample")
+SAMPLE_PATH = Path(__file__).parent.resolve() / "static" / "sample"
 
 
 @app.before_request
@@ -66,11 +65,11 @@ def index():
     # Check if random button was hit
     if request.form["action"] == "random":
         # Get random sample image and read image bytes
-        random_filename = random.choice(os.listdir(SAMPLE_PATH))
-        with open(os.path.join(SAMPLE_PATH, random_filename), "rb") as file:
+        random_filename = random.choice(list(SAMPLE_PATH.iterdir()))
+        with open((SAMPLE_PATH / random_filename).as_posix(), "rb") as file:
             file_bytes = file.read()
         # Get image file extension
-        extension = os.path.splitext(random_filename)[1]
+        extension = random_filename.suffix
 
     # Upload button was hit
     else:
@@ -85,7 +84,7 @@ def index():
 
         # User uploaded a file, read bytes and get file extension
         file_bytes = uploaded_file.stream.read()
-        extension = os.path.splitext(uploaded_file.filename)[1]
+        extension = Path(uploaded_file.filename).suffix
 
     # Convert image into base64 string
     base64_image = base64.b64encode(file_bytes).decode("ascii")

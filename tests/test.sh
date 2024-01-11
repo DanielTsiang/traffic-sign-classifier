@@ -1,5 +1,10 @@
 # Run integration tests
 echo "======= Starting Docker containers ======="
+docker build \
+  -f ./services/flask/Dockerfile.flask \
+  -t flask \
+  ./services/flask/
+
 docker-compose up -d
 
 echo "======= Running integration tests ======="
