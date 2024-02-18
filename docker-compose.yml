@@ -4,6 +4,8 @@ services:
         build:
             context: ./services/tensorflow-serving
             dockerfile: Dockerfile.tf
+        command:
+            - "--model_config_file=/models/model.config"
         container_name: tensorflow-serving
         ports:
             - "8501:8501"
@@ -16,7 +18,7 @@ services:
             dockerfile: Dockerfile.nginx
         container_name: nginx
         ports:
-            - "1337:443"
+            - "80:80"
         depends_on:
             - flask
 
