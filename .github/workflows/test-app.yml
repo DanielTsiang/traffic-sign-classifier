@@ -4,9 +4,9 @@ name: Test application
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "deploy" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "deploy" ]
   workflow_dispatch:
 
 permissions:
@@ -18,8 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build image
-        run: docker-compose up -d --build
-      - name: List container
-        run: docker-compose ps
+        run: docker build -t traffic .
+      - name: Run container
+        run: docker run --rm -d --name traffic -e TF_CPP_MIN_LOG_LEVEL="3" -v "$(pwd)/tests:/tests" -v "$(pwd)/model:/model" -v "$(pwd)/static:/static" traffic > /dev/null  # redirect output excluding errors
       - name: Run tests
-        run: docker-compose run --rm -e TF_CPP_MIN_LOG_LEVEL="3" -v "$(pwd)/tests:/tests" -v "$(pwd)/services:/services" flask python -m pytest tests/
+        run: docker exec traffic  python -m pytest tests/
