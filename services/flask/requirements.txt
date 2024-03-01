@@ -6,7 +6,7 @@ gunicorn~=21.2.0
 numpy~=1.26.2
 opencv-python-headless~=4.9.0.80
 # pytest is a testing requirement
-pytest~=8.0.0
+pytest~=8.0.2
 requests~=2.31.0
 setuptools>=65.5.1 # not directly required, pinned to avoid a vulnerability
 # tensorflow is a testing requirement
