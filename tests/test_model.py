@@ -4,7 +4,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 import pytest
-import tensorflow as tf
+import tf_keras as keras
 from conftest import *
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"  # Disable tensorflow debugging logs
@@ -12,7 +12,7 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"  # Disable tensorflow debugging logs
 
 @pytest.fixture(scope="module")
 def model():
-    return tf.keras.models.load_model(
+    return keras.models.load_model(
         Path(__file__).parents[1].resolve()
         / "services"
         / "tensorflow-serving"
