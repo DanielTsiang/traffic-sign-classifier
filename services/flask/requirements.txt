@@ -10,5 +10,4 @@ pytest~=8.2.0
 requests~=2.31.0
 setuptools>=65.5.1 # not directly required, pinned to avoid a vulnerability
 # tensorflow is a testing requirement
-tensorflow~=2.16.1
-tf-keras~=2.16
+tensorflow~=2.15.1
