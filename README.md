@@ -74,4 +74,3 @@ To run the integration tests, in the root folder, run the following in the termi
 ```shell
 sh tests/test.sh
 ```
-
