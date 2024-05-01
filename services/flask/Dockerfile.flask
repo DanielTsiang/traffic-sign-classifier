@@ -19,3 +19,4 @@ ENV PYTHONPATH "${PYTHONPATH}:/services/flask"
 
 # Start gunicorn
 CMD ["gunicorn", "--log-config", "/services/flask/logging.conf", "-c", "/services/flask/gunicorn_config.py", "--preload", "wsgi:app"]
+
