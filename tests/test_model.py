@@ -14,8 +14,6 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"  # Disable tensorflow debugging logs
 def model():
     return tf.keras.models.load_model(
         Path(__file__).parents[1].resolve()
-        / "services"
-        / "tensorflow-serving"
         / "model"
         / "1"
     )
