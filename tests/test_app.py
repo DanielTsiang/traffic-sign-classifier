@@ -10,8 +10,8 @@ import pytest
 from conftest import *
 from flask import template_rendered
 
-from services.flask import model
-from services.flask.application import app
+import model
+from application import app
 
 
 @contextmanager
@@ -158,10 +158,4 @@ def test_random():
 
 
 if __name__ == "__main__":
-    import subprocess
-
-    try:
-        subprocess.run(["docker-compose", "up", "-d"])
-        pytest.main()
-    finally:
-        subprocess.run(["docker-compose", "down"])
+    pytest.main([__file__])
