@@ -4,9 +4,10 @@ name: Test application
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "non-ssl" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "non-ssl" ]
+    types: [opened, synchronize, reopened, edited]
   workflow_dispatch:
 
 permissions:
